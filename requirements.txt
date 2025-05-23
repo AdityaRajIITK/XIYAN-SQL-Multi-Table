@@ -1,0 +1,7 @@
+llama-index
+numpy
+sqlalchemy
+torch
+transformers
+accelerate
+psycopg2
