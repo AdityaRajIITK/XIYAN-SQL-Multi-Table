@@ -2,21 +2,86 @@
   "db_id": "data",
   "schema": "public",
   "tables": {
-    "public.nodedata": {
+    "public.instance_type_metadata": {
       "fields": {
-        "nodeid": {
-          "type": "TEXT",
+        "instance_type": {
+          "type": "VARCHAR(256)",
           "primary_key": true,
           "nullable": false,
           "default": null,
           "autoincrement": false,
           "comment": "",
           "examples": [
-            "i-0000d4f7372fb61ae",
-            "i-0003ffb663799aca6",
-            "i-0004439ed925e9b69",
-            "i-0005028f2e6edf368",
-            "i-00074f29904fc0547"
+            "c5.12xlarge",
+            "c5.18xlarge",
+            "c5.24xlarge",
+            "c5.2xlarge",
+            "c5.4xlarge"
+          ]
+        },
+        "count_gpu": {
+          "type": "SMALLINT",
+          "primary_key": false,
+          "nullable": true,
+          "default": "0",
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "4",
+            "8",
+            "0",
+            "1"
+          ]
+        },
+        "count_cpu": {
+          "type": "SMALLINT",
+          "primary_key": false,
+          "nullable": true,
+          "default": "0",
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "1",
+            "36",
+            "2",
+            "64",
+            "4"
+          ]
+        },
+        "count_memory": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": "0",
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "64",
+            "16",
+            "488",
+            "768",
+            "144"
+          ]
+        }
+      },
+      "examples": [],
+      "comment": ""
+    },
+    "public.node_data": {
+      "fields": {
+        "nodeid": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "i-043b981dd9bd26fe4",
+            "i-008845b79cb98529f",
+            "i-06115036b30c9213c",
+            "i-0b96e81c77e60c6f8",
+            "i-0597e8d167f8e789d"
           ]
         },
         "nodename": {
@@ -290,6 +355,828 @@
           "comment": "",
           "examples": [
             "2025-05-15 10:16:23.068653"
+          ]
+        }
+      },
+      "examples": [],
+      "comment": ""
+    },
+    "public.initiativedata": {
+      "fields": {
+        "id": {
+          "type": "INTEGER",
+          "primary_key": true,
+          "nullable": false,
+          "default": "nextval('\"public\".initiativedata_id_seq'::regclass)",
+          "autoincrement": true,
+          "comment": "",
+          "examples": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        "initiativeid": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "4500158",
+            "4500661",
+            "4500099",
+            "4500110",
+            "65c7e973-d0e5-48c5-a6b7-c23efe234bda"
+          ]
+        },
+        "nodepoolid": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "23",
+            "133",
+            "25",
+            "562",
+            "199"
+          ]
+        },
+        "initiativename": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "gpu-169--video-multiedit--rdg12",
+            "[Jira: GPU-199] - CPG - DI",
+            "gpu-212--discretionary-pool-research-g3i",
+            "[Jira: GPU-125] Firefly Production Model Training  (PG65)",
+            "[Jira: GPU-196] MINT, AdobeOne, Design Variations (PG81, PG84, PG85, PG80)"
+          ]
+        },
+        "clustername": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "sensei-eks04-prod-cluster",
+            "colligo-laser01-prod-uw2",
+            "sensei-eks02-prod-cluster",
+            "sensei-eks03-prod-cluster"
+          ]
+        },
+        "nodepoolname": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "a100-80gb-mdsr",
+            "p4de.24xlarge",
+            "a100-3",
+            "c5d.24xlarge",
+            "default"
+          ]
+        },
+        "costlabel": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "gpu-159",
+            "GPU-133",
+            "GPU-214",
+            "gpu-161",
+            "GPU-158"
+          ]
+        },
+        "gpuquota": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "128",
+            "200",
+            "384",
+            "8",
+            "344"
+          ]
+        },
+        "cpuquota": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": []
+        },
+        "memoryquota": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": []
+        },
+        "createdat": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2024-03-07 17:33:12.187000"
+          ]
+        },
+        "lastfetched": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-05-15 10:16:22.170649"
+          ]
+        }
+      },
+      "examples": [],
+      "comment": ""
+    },
+    "public.nodedata": {
+      "fields": {
+        "nodeid": {
+          "type": "TEXT",
+          "primary_key": true,
+          "nullable": false,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "i-0000d4f7372fb61ae",
+            "i-0003ffb663799aca6",
+            "i-0004439ed925e9b69",
+            "i-0005028f2e6edf368",
+            "i-00074f29904fc0547"
+          ]
+        },
+        "nodename": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "ip-10-93-224-63.us-west-2.compute.internal",
+            "ip-10-91-59-99.us-west-2.compute.internal",
+            "ip-10-90-219-71.us-west-2.compute.internal",
+            "ip-10-91-102-175.us-west-2.compute.internal",
+            "ip-10-79-240-157.us-west-2.compute.internal"
+          ]
+        },
+        "clustername": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "sensei-eks04-prod-cluster",
+            "sensei-eks01-prod-cluster",
+            "colligo-laser01-prod-uw2",
+            "colligo-laser-control-prod-uw2",
+            "sensei-eks02-prod-cluster"
+          ]
+        },
+        "instancetype": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "p4de.24xlarge",
+            "r5dn.8xlarge",
+            "c5d.24xlarge",
+            "r6i.24xlarge",
+            "p4d.24xlarge"
+          ]
+        },
+        "tags": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "{'Adobe.Owner': 'Sensei Ops'; 'Name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-lt-01'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'aws:ec2:fleet-id': 'fleet-1a34a204-7925-6696-a432-0d8866022d9e'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-a100-emptyDir-gpu-efa-01-dccaf998-579a-c7ae-c2d3-2b04e12b4720'; 'Adobe.CostCenter': '102841'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.DataClassification': 'Restricted'; 'aws:ec2launchtemplate:id': 'lt-0e0846ea2f7481431'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'eks:nodegroup-name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-01'; 'Adobe.Project': 'Sensei-EKS'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Environment': 'Prod'; 'CapacityReservationId': 'cr-0f1e1d17ec2f6423d'}",
+            "{'aws:ec2launchtemplate:id': 'lt-062256079ed7a87de'; 'aws:ec2launchtemplate:version': '1'; 'aws:ec2:fleet-id': 'fleet-b03e88ae-710d-ec36-8618-a72828d57531'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'eks:nodegroup-name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-06'; 'Adobe.Environment': 'Prod'; 'Adobe.CostCenter': '102841'; 'Adobe.Owner': 'Sensei Ops'; 'Adobe.Project': 'Sensei-EKS'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-lt-06'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-06-c4caf913-25ad-f69f-dcbd-9196a4a2f34c'; 'Adobe.DataClassification': 'Restricted'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'CapacityReservationId': 'cr-08f66be6360b5763d'}",
+            "{'Adobe.Owner': 'Sensei Ops'; 'eks:cluster-name': 'sensei-eks04-prod-cluster'; 'kubernetes.io/cluster/sensei-eks04-prod-cluster': 'owned'; 'aws:autoscaling:groupName': 'eks-sensei-eks04-prod-gpu-efa-ng-01-24ca9b67-7e76-79b3-2c1c-936fab7f7d37'; 'aws:ec2launchtemplate:id': 'lt-01e9a42a66d9732de'; 'Adobe.Project': 'Sensei-EKS'; 'eks:nodegroup-name': 'sensei-eks04-prod-gpu-efa-ng-01'; 'k8s.io/cluster-autoscaler/sensei-eks04-prod-cluster': 'owned'; 'Adobe.Environment': 'Prod'; 'Name': 'sensei-eks04-prod-gpu-efa-ng-01'; 'Adobe.CostCenter': '102841'; 'aws:ec2:fleet-id': 'fleet-b09e0a2e-79af-44b4-06b8-ad80ad231628'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'Adobe.DataClassification': 'Restricted'; 'aws:eks:cluster-name': 'sensei-eks04-prod-cluster'; 'aws:ec2launchtemplate:version': '1'; 'CapacityReservationId': 'cr-0567533284647125e'}",
+            "{'Adobe.CostCenter': '102841'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2:fleet-id': 'fleet-243cbe15-c6ad-e6a7-2e12-81aab13cfe3b'; 'eks:nodegroup-name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-02'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-02-96caf713-510b-4917-8a77-4885cfb1ccca'; 'Adobe.Owner': 'Sensei Ops'; 'aws:ec2launchtemplate:id': 'lt-0ec4929233ebdbdf9'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.DataClassification': 'Restricted'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Project': 'Sensei-EKS'; 'Name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-lt-02'; 'Adobe.Environment': 'Prod'; 'CapacityReservationId': 'cr-0fe7b8e0c190816d2'}",
+            "{'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2:fleet-id': 'fleet-043e34b5-e627-e60d-ae38-a12a7dd3a373'; 'eks:nodegroup-name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-01'; 'Adobe.DataClassification': 'Restricted'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.Project': 'Sensei-EKS'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-a100-emptyDir-gpu-efa-01-dccaf998-579a-c7ae-c2d3-2b04e12b4720'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'aws:ec2launchtemplate:id': 'lt-0e0846ea2f7481431'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Owner': 'Sensei Ops'; 'Adobe.Environment': 'Prod'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-lt-01'; 'Adobe.CostCenter': '102841'; 'CapacityReservationId': 'cr-0f1e1d17ec2f6423d'}"
+          ]
+        },
+        "created": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-05-11 01:37:51"
+          ]
+        },
+        "snapshottime": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-04-21 19:46:53.516841"
+          ]
+        },
+        "platform": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "pluto",
+            "runai"
+          ]
+        }
+      },
+      "examples": [],
+      "comment": ""
+    },
+    "public.poddata": {
+      "fields": {
+        "k8sid": {
+          "type": "TEXT",
+          "primary_key": true,
+          "nullable": false,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "00002f12-0561-46d5-8e28-9e0ac11b8231",
+            "0000b8c0-cee8-4df8-af15-e55b6d6cb57b",
+            "0000b9ba-a872-4d01-a8e9-6548314390cd",
+            "0000d5e9-a3cf-4c1c-a0b3-aa4b7ea58a3a",
+            "0000f643-00f2-40bc-898e-409f98f26851"
+          ]
+        },
+        "name": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "a026d4e13e2638ae4c2229080cdd83002d8b75c1942-0-0",
+            "a02e44fd174bc082733bd3117eb538e1bddf3164b1f-0-0",
+            "a02fa420e2e365d8c04eff9f2f77ac8877095369b17-0-0",
+            "a0366058a2c91e3339c30f40fd28d779c0935eec47b-0-0",
+            "a042d16bf6645a664f308bee6a777c5f019d0b17703-0-0"
+          ]
+        },
+        "namespace": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "runai-a1",
+            "runai-adobe-fonts-p4de",
+            "runai-ai-clio-p4de",
+            "runai-ai-safety-qual",
+            "runai-apollo"
+          ]
+        },
+        "jobname": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "pluto-prod-yiwhu-filix3-dist-u8sv6d",
+            "pluto-prod-chaow-e2e-mori-training-j04ucy",
+            "pluto-prod-schermala-autogen-dmd-4-xnc9m4",
+            "finecapmllm-be-100000-102000-2025-03-01-115447",
+            "llava-qwen-7b-attn-288-curr-w-eval"
+          ]
+        },
+        "project": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "a1",
+            "adobe-fonts-p4de",
+            "adobe-look",
+            "ai-clio-p4de"
+          ]
+        },
+        "initiative": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "ai-platform",
+            "asml",
+            "BYOA",
+            "clineto"
+          ]
+        },
+        "project_id": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "00828886-cc30-45a7-8ee2-cad6ffdd22c3",
+            "00d7eff0-d859-4632-a19b-fc842d455015",
+            "03514fd7-395d-4348-aa76-6699bbe75d57",
+            "041749fb-03a3-4e8c-9b94-6e6bc2a4c53e"
+          ]
+        },
+        "initiative_id": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "044d4bd8-4a4e-461d-a1d6-836e86a147ea",
+            "05518fa7-40ba-401c-8677-93ecd8a5601c",
+            "06d76477-6b61-4fd7-ba5c-d895f442885f",
+            "0b3d118d-8045-45aa-8ef5-597e287d7aa0"
+          ]
+        },
+        "clustername": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "colligo-laser01-prod-uw2",
+            "sensei-eks02-prod-cluster",
+            "sensei-eks03-prod-cluster",
+            "sensei-eks04-prod-cluster"
+          ]
+        },
+        "starttime": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-04-21 16:53:46"
+          ]
+        },
+        "endtime": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-03-23 02:14:45.679344"
+          ]
+        },
+        "countgpu": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "countcpu": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        "memory_mb": {
+          "type": "INTEGER",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "0",
+            "1802",
+            "2826",
+            "3604",
+            "5406"
+          ]
+        },
+        "snapshot_time": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-03-23 02:14:45.679344"
+          ]
+        },
+        "platform": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "pluto",
+            "runai"
+          ]
+        },
+        "is_terminated": {
+          "type": "BOOLEAN",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "False"
+          ]
+        },
+        "job_id": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "40eab889-ee60-4750-b221-e6e38776c797",
+            "0a6c6ff8-cf49-47e8-bdbf-d255ed9da39d",
+            "db61a0f8-a0fc-4534-aa8c-bfa4d5894ef8",
+            "1c21bfde-53ea-4a32-8257-60dad0733a69"
+          ]
+        },
+        "annotations": {
+          "type": "JSON",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": []
+        },
+        "state": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "Deleted",
+            "Error",
+            "Failed",
+            "Pending",
+            "Running"
+          ]
+        },
+        "tags": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'interactive'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-tyom'; 'controller-uid': '106984ec-2aa3-4b5e-b9f2-0c851161bd62'; 'createdBy': 'RunaiJob'; 'priorityClassName': 'build'; 'project': 'clio-applications-p4de'; 'release': 'cz-0309jhel2'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '41945bf9-dbd5-424a-9faa-b428b1dbd18b'; 'runai/pod-index': '0-0'; 'workloadKind': 'InteractiveWorkload'; 'workloadName': 'cz-0309jhel2'}",
+            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'interactive'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-tyom'; 'controller-uid': 'b696f649-088d-4b9d-b637-a330ff1ebc67'; 'createdBy': 'RunaiJob'; 'priorityClassName': 'build'; 'project': 'clio-applications-p4de'; 'release': 'cz-clio412'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '11167945-7449-4003-8809-75a55429e546'; 'runai/pod-index': '0-0'; 'workloadKind': 'InteractiveWorkload'; 'workloadName': 'cz-clio412'}",
+            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-6'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}",
+            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-7'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}",
+            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-8'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}"
+          ]
+        },
+        "owner_ldap": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": []
+        },
+        "node_name": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "0.0.0.0",
+            "ip-10-51-0-143.us-west-2.compute.internal",
+            "ip-10-51-103-90.us-west-2.compute.internal",
+            "ip-10-51-108-15.us-west-2.compute.internal",
+            "ip-10-51-116-101.us-west-2.compute.internal"
+          ]
+        },
+        "last_metric_received_time": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-05-11 14:12:16"
+          ]
+        },
+        "last_metric_fetched": {
+          "type": "TIMESTAMP",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-05-15 00:08:44.780246"
+          ]
+        }
+      },
+      "examples": [],
+      "comment": ""
+    },
+    "public.costs_data": {
+      "fields": {
+        "id": {
+          "type": "BIGINT",
+          "primary_key": true,
+          "nullable": false,
+          "default": "nextval('\"public\".costs_data_id_seq'::regclass)",
+          "autoincrement": true,
+          "comment": "",
+          "examples": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        "account_id": {
+          "type": "BIGINT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "58264114004",
+            "214272701565",
+            "300610508385",
+            "302505606624",
+            "333190514293"
+          ]
+        },
+        "product_name": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "Amazon API Gateway",
+            "Amazon Athena",
+            "Amazon CloudFront",
+            "Amazon DevOps Guru",
+            "Amazon DocumentDB (with MongoDB compatibility)"
+          ]
+        },
+        "date_day": {
+          "type": "DATE",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-03-27"
+          ]
+        },
+        "category": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "COMPUTE-RI",
+            "MISC",
+            "NETWORKING",
+            "OTHER COMPUTE",
+            "STORAGE"
+          ]
+        },
+        "subcategory": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "A100-40GB",
+            "A100-80GB",
+            "A100-RI-40GB",
+            "A100-RI-80GB",
+            "A10G"
+          ]
+        },
+        "region": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "af-south-1",
+            "ap-northeast-1",
+            "ap-northeast-2",
+            "ap-northeast-3",
+            "ap-south-1"
+          ]
+        },
+        "usage_description": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "AP-DataTransfer-Out-Bytes",
+            "ap-northeast-1-KMS-Keys",
+            "ap-northeast-1-KMS-Requests",
+            "ap-northeast-2-KMS-Requests",
+            "ap-northeast-3-KMS-Requests"
+          ]
+        },
+        "unit": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "64K-Chunks",
+            "ACU-Hr",
+            "Alarms",
+            "API Calls",
+            "API Request"
+          ]
+        },
+        "data_creation_date": {
+          "type": "DATE",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "2025-05-07"
+          ]
+        },
+        "env": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "DEV",
+            "PROD",
+            "STAGE"
+          ]
+        },
+        "instancetype": {
+          "type": "TEXT",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "c5.12xlarge",
+            "c5.18xlarge",
+            "c5.24xlarge",
+            "c5.2xlarge",
+            "c5.4xlarge"
+          ]
+        },
+        "total_spend": {
+          "type": "DOUBLE PRECISION",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "0.0",
+            "1e-10",
+            "2e-10",
+            "3e-10",
+            "4e-10"
+          ]
+        },
+        "total_usage_hours": {
+          "type": "DOUBLE PRECISION",
+          "primary_key": false,
+          "nullable": true,
+          "default": null,
+          "autoincrement": false,
+          "comment": "",
+          "examples": [
+            "30847.4106463465",
+            "0.0",
+            "1065968.0",
+            "1.82415e-05",
+            "70009.11987755449"
           ]
         }
       },
@@ -756,893 +1643,6 @@
           "comment": "",
           "examples": [
             "0.0"
-          ]
-        }
-      },
-      "examples": [],
-      "comment": ""
-    },
-    "public.node_data": {
-      "fields": {
-        "nodeid": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "i-043b981dd9bd26fe4",
-            "i-008845b79cb98529f",
-            "i-06115036b30c9213c",
-            "i-0b96e81c77e60c6f8",
-            "i-0597e8d167f8e789d"
-          ]
-        },
-        "nodename": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "ip-10-93-224-63.us-west-2.compute.internal",
-            "ip-10-91-59-99.us-west-2.compute.internal",
-            "ip-10-90-219-71.us-west-2.compute.internal",
-            "ip-10-91-102-175.us-west-2.compute.internal",
-            "ip-10-79-240-157.us-west-2.compute.internal"
-          ]
-        },
-        "clustername": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "sensei-eks04-prod-cluster",
-            "sensei-eks01-prod-cluster",
-            "colligo-laser01-prod-uw2",
-            "colligo-laser-control-prod-uw2",
-            "sensei-eks02-prod-cluster"
-          ]
-        },
-        "instancetype": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "p4de.24xlarge",
-            "r5dn.8xlarge",
-            "c5d.24xlarge",
-            "r6i.24xlarge",
-            "p4d.24xlarge"
-          ]
-        },
-        "tags": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "{'Adobe.Owner': 'Sensei Ops'; 'Name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-lt-01'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'aws:ec2:fleet-id': 'fleet-1a34a204-7925-6696-a432-0d8866022d9e'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-a100-emptyDir-gpu-efa-01-dccaf998-579a-c7ae-c2d3-2b04e12b4720'; 'Adobe.CostCenter': '102841'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.DataClassification': 'Restricted'; 'aws:ec2launchtemplate:id': 'lt-0e0846ea2f7481431'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'eks:nodegroup-name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-01'; 'Adobe.Project': 'Sensei-EKS'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Environment': 'Prod'; 'CapacityReservationId': 'cr-0f1e1d17ec2f6423d'}",
-            "{'aws:ec2launchtemplate:id': 'lt-062256079ed7a87de'; 'aws:ec2launchtemplate:version': '1'; 'aws:ec2:fleet-id': 'fleet-b03e88ae-710d-ec36-8618-a72828d57531'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'eks:nodegroup-name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-06'; 'Adobe.Environment': 'Prod'; 'Adobe.CostCenter': '102841'; 'Adobe.Owner': 'Sensei Ops'; 'Adobe.Project': 'Sensei-EKS'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-lt-06'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-06-c4caf913-25ad-f69f-dcbd-9196a4a2f34c'; 'Adobe.DataClassification': 'Restricted'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'CapacityReservationId': 'cr-08f66be6360b5763d'}",
-            "{'Adobe.Owner': 'Sensei Ops'; 'eks:cluster-name': 'sensei-eks04-prod-cluster'; 'kubernetes.io/cluster/sensei-eks04-prod-cluster': 'owned'; 'aws:autoscaling:groupName': 'eks-sensei-eks04-prod-gpu-efa-ng-01-24ca9b67-7e76-79b3-2c1c-936fab7f7d37'; 'aws:ec2launchtemplate:id': 'lt-01e9a42a66d9732de'; 'Adobe.Project': 'Sensei-EKS'; 'eks:nodegroup-name': 'sensei-eks04-prod-gpu-efa-ng-01'; 'k8s.io/cluster-autoscaler/sensei-eks04-prod-cluster': 'owned'; 'Adobe.Environment': 'Prod'; 'Name': 'sensei-eks04-prod-gpu-efa-ng-01'; 'Adobe.CostCenter': '102841'; 'aws:ec2:fleet-id': 'fleet-b09e0a2e-79af-44b4-06b8-ad80ad231628'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'Adobe.DataClassification': 'Restricted'; 'aws:eks:cluster-name': 'sensei-eks04-prod-cluster'; 'aws:ec2launchtemplate:version': '1'; 'CapacityReservationId': 'cr-0567533284647125e'}",
-            "{'Adobe.CostCenter': '102841'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2:fleet-id': 'fleet-243cbe15-c6ad-e6a7-2e12-81aab13cfe3b'; 'eks:nodegroup-name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-02'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-02-96caf713-510b-4917-8a77-4885cfb1ccca'; 'Adobe.Owner': 'Sensei Ops'; 'aws:ec2launchtemplate:id': 'lt-0ec4929233ebdbdf9'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.DataClassification': 'Restricted'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Project': 'Sensei-EKS'; 'Name': 'colligo-laser01-prod-h100-emptyDir-gpu-efa-h100-lt-02'; 'Adobe.Environment': 'Prod'; 'CapacityReservationId': 'cr-0fe7b8e0c190816d2'}",
-            "{'Adobe.ArchPath': 'Sensei.Training.Cluster.Infra'; 'aws:ec2:fleet-id': 'fleet-043e34b5-e627-e60d-ae38-a12a7dd3a373'; 'eks:nodegroup-name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-01'; 'Adobe.DataClassification': 'Restricted'; 'k8s.io/cluster-autoscaler/enabled': 'true'; 'aws:ec2launchtemplate:version': '1'; 'kubernetes.io/cluster/colligo-laser01-prod-uw2': 'owned'; 'Adobe.Project': 'Sensei-EKS'; 'aws:autoscaling:groupName': 'eks-colligo-laser01-prod-a100-emptyDir-gpu-efa-01-dccaf998-579a-c7ae-c2d3-2b04e12b4720'; 'k8s.io/cluster-autoscaler/colligo-laser01-prod-uw2': 'owned'; 'aws:ec2launchtemplate:id': 'lt-0e0846ea2f7481431'; 'aws:eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Adobe.Owner': 'Sensei Ops'; 'Adobe.Environment': 'Prod'; 'eks:cluster-name': 'colligo-laser01-prod-uw2'; 'Name': 'colligo-laser01-prod-a100-emptyDir-gpu-efa-lt-01'; 'Adobe.CostCenter': '102841'; 'CapacityReservationId': 'cr-0f1e1d17ec2f6423d'}"
-          ]
-        },
-        "created": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-05-11 01:37:51"
-          ]
-        },
-        "snapshottime": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-04-21 19:46:53.516841"
-          ]
-        },
-        "platform": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "pluto",
-            "runai"
-          ]
-        }
-      },
-      "examples": [],
-      "comment": ""
-    },
-    "public.instance_type_metadata": {
-      "fields": {
-        "instance_type": {
-          "type": "VARCHAR(256)",
-          "primary_key": true,
-          "nullable": false,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "c5.12xlarge",
-            "c5.18xlarge",
-            "c5.24xlarge",
-            "c5.2xlarge",
-            "c5.4xlarge"
-          ]
-        },
-        "count_gpu": {
-          "type": "SMALLINT",
-          "primary_key": false,
-          "nullable": true,
-          "default": "0",
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "4",
-            "8",
-            "0",
-            "1"
-          ]
-        },
-        "count_cpu": {
-          "type": "SMALLINT",
-          "primary_key": false,
-          "nullable": true,
-          "default": "0",
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "1",
-            "36",
-            "2",
-            "64",
-            "4"
-          ]
-        },
-        "count_memory": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": "0",
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "64",
-            "16",
-            "488",
-            "768",
-            "144"
-          ]
-        }
-      },
-      "examples": [],
-      "comment": ""
-    },
-    "public.costs_data": {
-      "fields": {
-        "id": {
-          "type": "BIGINT",
-          "primary_key": true,
-          "nullable": false,
-          "default": "nextval('\"public\".costs_data_id_seq'::regclass)",
-          "autoincrement": true,
-          "comment": "",
-          "examples": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
-          ]
-        },
-        "account_id": {
-          "type": "BIGINT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "58264114004",
-            "214272701565",
-            "300610508385",
-            "302505606624",
-            "333190514293"
-          ]
-        },
-        "product_name": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "Amazon API Gateway",
-            "Amazon Athena",
-            "Amazon CloudFront",
-            "Amazon DevOps Guru",
-            "Amazon DocumentDB (with MongoDB compatibility)"
-          ]
-        },
-        "date_day": {
-          "type": "DATE",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-03-27"
-          ]
-        },
-        "category": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "COMPUTE-RI",
-            "MISC",
-            "NETWORKING",
-            "OTHER COMPUTE",
-            "STORAGE"
-          ]
-        },
-        "subcategory": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "A100-40GB",
-            "A100-80GB",
-            "A100-RI-40GB",
-            "A100-RI-80GB",
-            "A10G"
-          ]
-        },
-        "region": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "af-south-1",
-            "ap-northeast-1",
-            "ap-northeast-2",
-            "ap-northeast-3",
-            "ap-south-1"
-          ]
-        },
-        "usage_description": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "AP-DataTransfer-Out-Bytes",
-            "ap-northeast-1-KMS-Keys",
-            "ap-northeast-1-KMS-Requests",
-            "ap-northeast-2-KMS-Requests",
-            "ap-northeast-3-KMS-Requests"
-          ]
-        },
-        "unit": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "64K-Chunks",
-            "ACU-Hr",
-            "Alarms",
-            "API Calls",
-            "API Request"
-          ]
-        },
-        "data_creation_date": {
-          "type": "DATE",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-05-07"
-          ]
-        },
-        "env": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "DEV",
-            "PROD",
-            "STAGE"
-          ]
-        },
-        "instancetype": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "c5.12xlarge",
-            "c5.18xlarge",
-            "c5.24xlarge",
-            "c5.2xlarge",
-            "c5.4xlarge"
-          ]
-        },
-        "total_spend": {
-          "type": "DOUBLE PRECISION",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "0.0",
-            "1e-10",
-            "2e-10",
-            "3e-10",
-            "4e-10"
-          ]
-        },
-        "total_usage_hours": {
-          "type": "DOUBLE PRECISION",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "30847.4106463465",
-            "0.0",
-            "1065968.0",
-            "1.82415e-05",
-            "70009.11987755449"
-          ]
-        }
-      },
-      "examples": [],
-      "comment": ""
-    },
-    "public.poddata": {
-      "fields": {
-        "k8sid": {
-          "type": "TEXT",
-          "primary_key": true,
-          "nullable": false,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "00002f12-0561-46d5-8e28-9e0ac11b8231",
-            "0000b8c0-cee8-4df8-af15-e55b6d6cb57b",
-            "0000b9ba-a872-4d01-a8e9-6548314390cd",
-            "0000d5e9-a3cf-4c1c-a0b3-aa4b7ea58a3a",
-            "0000f643-00f2-40bc-898e-409f98f26851"
-          ]
-        },
-        "name": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "a026d4e13e2638ae4c2229080cdd83002d8b75c1942-0-0",
-            "a02e44fd174bc082733bd3117eb538e1bddf3164b1f-0-0",
-            "a02fa420e2e365d8c04eff9f2f77ac8877095369b17-0-0",
-            "a0366058a2c91e3339c30f40fd28d779c0935eec47b-0-0",
-            "a042d16bf6645a664f308bee6a777c5f019d0b17703-0-0"
-          ]
-        },
-        "namespace": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "runai-a1",
-            "runai-adobe-fonts-p4de",
-            "runai-ai-clio-p4de",
-            "runai-ai-safety-qual",
-            "runai-apollo"
-          ]
-        },
-        "jobname": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "pluto-prod-yiwhu-filix3-dist-u8sv6d",
-            "pluto-prod-chaow-e2e-mori-training-j04ucy",
-            "pluto-prod-schermala-autogen-dmd-4-xnc9m4",
-            "finecapmllm-be-100000-102000-2025-03-01-115447",
-            "llava-qwen-7b-attn-288-curr-w-eval"
-          ]
-        },
-        "project": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "a1",
-            "adobe-fonts-p4de",
-            "adobe-look",
-            "ai-clio-p4de"
-          ]
-        },
-        "initiative": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "ai-platform",
-            "asml",
-            "BYOA",
-            "clineto"
-          ]
-        },
-        "project_id": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "00828886-cc30-45a7-8ee2-cad6ffdd22c3",
-            "00d7eff0-d859-4632-a19b-fc842d455015",
-            "03514fd7-395d-4348-aa76-6699bbe75d57",
-            "041749fb-03a3-4e8c-9b94-6e6bc2a4c53e"
-          ]
-        },
-        "initiative_id": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "044d4bd8-4a4e-461d-a1d6-836e86a147ea",
-            "05518fa7-40ba-401c-8677-93ecd8a5601c",
-            "06d76477-6b61-4fd7-ba5c-d895f442885f",
-            "0b3d118d-8045-45aa-8ef5-597e287d7aa0"
-          ]
-        },
-        "clustername": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "colligo-laser01-prod-uw2",
-            "sensei-eks02-prod-cluster",
-            "sensei-eks03-prod-cluster",
-            "sensei-eks04-prod-cluster"
-          ]
-        },
-        "starttime": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-04-21 16:53:46"
-          ]
-        },
-        "endtime": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-03-23 02:14:45.679344"
-          ]
-        },
-        "countgpu": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4"
-          ]
-        },
-        "countcpu": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4"
-          ]
-        },
-        "memory_mb": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "0",
-            "1802",
-            "2826",
-            "3604",
-            "5406"
-          ]
-        },
-        "snapshot_time": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-03-23 02:14:45.679344"
-          ]
-        },
-        "platform": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "pluto",
-            "runai"
-          ]
-        },
-        "is_terminated": {
-          "type": "BOOLEAN",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "False"
-          ]
-        },
-        "job_id": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "40eab889-ee60-4750-b221-e6e38776c797",
-            "0a6c6ff8-cf49-47e8-bdbf-d255ed9da39d",
-            "db61a0f8-a0fc-4534-aa8c-bfa4d5894ef8",
-            "1c21bfde-53ea-4a32-8257-60dad0733a69"
-          ]
-        },
-        "annotations": {
-          "type": "JSON",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": []
-        },
-        "state": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "Deleted",
-            "Error",
-            "Failed",
-            "Pending",
-            "Running"
-          ]
-        },
-        "tags": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'interactive'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-tyom'; 'controller-uid': '106984ec-2aa3-4b5e-b9f2-0c851161bd62'; 'createdBy': 'RunaiJob'; 'priorityClassName': 'build'; 'project': 'clio-applications-p4de'; 'release': 'cz-0309jhel2'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '41945bf9-dbd5-424a-9faa-b428b1dbd18b'; 'runai/pod-index': '0-0'; 'workloadKind': 'InteractiveWorkload'; 'workloadName': 'cz-0309jhel2'}",
-            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'interactive'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-tyom'; 'controller-uid': 'b696f649-088d-4b9d-b637-a330ff1ebc67'; 'createdBy': 'RunaiJob'; 'priorityClassName': 'build'; 'project': 'clio-applications-p4de'; 'release': 'cz-clio412'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '11167945-7449-4003-8809-75a55429e546'; 'runai/pod-index': '0-0'; 'workloadKind': 'InteractiveWorkload'; 'workloadName': 'cz-clio412'}",
-            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-6'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}",
-            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-7'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}",
-            "{'activity_type': 'development'; 'adobe.com/efa-devices-mutated': 'true'; 'adobe.com/etc-passwd-groups-injected': 'true'; 'adobe.com/local-ssd-injected': 'true'; 'adobe.com/runai_department': 'asml'; 'adobe.com/runai_distributed_training': 'false'; 'adobe.com/runai_workload_type': 'training'; 'adobe.com/sensei-fs-2-injected': 'true'; 'adobe.com/sensei-fs-3-injected': 'true'; 'adobe.com/sensei-fs-injected': 'true'; 'app': 'runaijob'; 'asml_project_name': 'clio-next'; 'controller-uid': '105039fb-7d86-4957-92ea-3e9125851a89'; 'createdBy': 'RunaiJob'; 'project': 'asml-img-data'; 'release': 'miranda-internvl2p5-structured-c-2b90-v65b5'; 'research_jack_id': '5333'; 'run.ai/top-owner-uid': '9672499a-3243-473f-930d-b5c532694a8b'; 'runai/node-pool': 'a100-80gb-1'; 'runai/pod-index': '0-8'; 'workloadKind': 'TrainingWorkload'; 'workloadName': 'miranda-internvl2p5-structured-c-2b90-v65b5'}"
-          ]
-        },
-        "owner_ldap": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": []
-        },
-        "node_name": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "0.0.0.0",
-            "ip-10-51-0-143.us-west-2.compute.internal",
-            "ip-10-51-103-90.us-west-2.compute.internal",
-            "ip-10-51-108-15.us-west-2.compute.internal",
-            "ip-10-51-116-101.us-west-2.compute.internal"
-          ]
-        },
-        "last_metric_received_time": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-05-11 14:12:16"
-          ]
-        },
-        "last_metric_fetched": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-05-15 00:08:44.780246"
-          ]
-        }
-      },
-      "examples": [],
-      "comment": ""
-    },
-    "public.initiativedata": {
-      "fields": {
-        "id": {
-          "type": "INTEGER",
-          "primary_key": true,
-          "nullable": false,
-          "default": "nextval('\"public\".initiativedata_id_seq'::regclass)",
-          "autoincrement": true,
-          "comment": "",
-          "examples": [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
-          ]
-        },
-        "initiativeid": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "4500158",
-            "4500661",
-            "4500099",
-            "4500110",
-            "65c7e973-d0e5-48c5-a6b7-c23efe234bda"
-          ]
-        },
-        "nodepoolid": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "23",
-            "133",
-            "25",
-            "562",
-            "199"
-          ]
-        },
-        "initiativename": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "gpu-169--video-multiedit--rdg12",
-            "[Jira: GPU-199] - CPG - DI",
-            "gpu-212--discretionary-pool-research-g3i",
-            "[Jira: GPU-125] Firefly Production Model Training  (PG65)",
-            "[Jira: GPU-196] MINT, AdobeOne, Design Variations (PG81, PG84, PG85, PG80)"
-          ]
-        },
-        "clustername": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "sensei-eks04-prod-cluster",
-            "colligo-laser01-prod-uw2",
-            "sensei-eks02-prod-cluster",
-            "sensei-eks03-prod-cluster"
-          ]
-        },
-        "nodepoolname": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "a100-80gb-mdsr",
-            "p4de.24xlarge",
-            "a100-3",
-            "c5d.24xlarge",
-            "default"
-          ]
-        },
-        "costlabel": {
-          "type": "TEXT",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "gpu-159",
-            "GPU-133",
-            "GPU-214",
-            "gpu-161",
-            "GPU-158"
-          ]
-        },
-        "gpuquota": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "128",
-            "200",
-            "384",
-            "8",
-            "344"
-          ]
-        },
-        "cpuquota": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": []
-        },
-        "memoryquota": {
-          "type": "INTEGER",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": []
-        },
-        "createdat": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2024-03-07 17:33:12.187000"
-          ]
-        },
-        "lastfetched": {
-          "type": "TIMESTAMP",
-          "primary_key": false,
-          "nullable": true,
-          "default": null,
-          "autoincrement": false,
-          "comment": "",
-          "examples": [
-            "2025-05-15 10:16:22.170649"
           ]
         }
       },
